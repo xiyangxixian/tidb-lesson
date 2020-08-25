@@ -441,7 +441,7 @@ Threads fairness:
 
 
 
-## go-tpc
+## go-ycsb
 
 命令：
 
@@ -453,6 +453,7 @@ Threads fairness:
 输出：
 
 ```
+Run finished, takes 1.580400335s
 READ   - Takes(s): 1.6, Count: 488, OPS: 310.8, Avg(us): 835, Min(us): 641, Max(us): 4465, 99th(us): 2000, 99.9th(us): 5000, 99.99th(us): 5000
 UPDATE - Takes(s): 1.6, Count: 512, OPS: 325.7, Avg(us): 2276, Min(us): 1956, Max(us): 8643, 99th(us): 4000, 99.9th(us): 9000, 99.99th(us): 9000
 ```
@@ -467,49 +468,75 @@ UPDATE - Takes(s): 1.6, Count: 512, OPS: 325.7, Avg(us): 2276, Min(us): 1956, Ma
 输出：
 
 ```
-
+Run finished, takes 2.028724206s
+READ   - Takes(s): 2.0, Count: 954, OPS: 471.3, Avg(us): 1576, Min(us): 738, Max(us): 14957, 99th(us): 11000, 99.9th(us): 15000, 99.99th(us): 15000
+UPDATE - Takes(s): 2.0, Count: 46, OPS: 23.2, Avg(us): 11267, Min(us): 3556, Max(us): 39967, 99th(us): 40000, 99.9th(us): 40000, 99.99th(us): 40000
 ```
 
 命令：
 
 ```
-./bin/go-ycsb load mysql -P workloads/workloadc -p recordcount=500000 -p mysql.host=10.xxx.xxx.xxx
+./bin/go-ycsb load mysql -P workloads/workloadc -p recordcount=100000 -p mysql.host=10.xxx.xxx.xxx
+./bin/go-ycsb run mysql -P workloads/workloadc -p recordcount=100000 -p mysql.host=10.xxx.xxx.xxx
 ```
 
 输出：
 
 ```
-
+Run finished, takes 1.559128974s
+READ   - Takes(s): 1.6, Count: 1000, OPS: 644.0, Avg(us): 1553, Min(us): 759, Max(us): 12542, 99th(us): 10000, 99.9th(us): 12000, 99.99th(us): 13000
 ```
 
 命令：
 
 ```
-./bin/go-ycsb load mysql -P workloads/workloadd -p recordcount=500000 -p mysql.host=10.xxx.xxx.xxx
+./bin/go-ycsb load mysql -P workloads/workloadd -p recordcount=100000 -p mysql.host=10.xxx.xxx.xxx
 ```
 
 输出：
 
 ```
-
+Run finished, takes 1.556564595s
+INSERT - Takes(s): 1.5, Count: 48, OPS: 31.4, Avg(us): 917, Min(us): 578, Max(us): 6354, 99th(us): 7000, 99.9th(us): 7000, 99.99th(us): 7000
+READ   - Takes(s): 1.5, Count: 952, OPS: 616.3, Avg(us): 1579, Min(us): 716, Max(us): 23818, 99th(us): 11000, 99.9th(us): 24000, 99.99th(us): 24000
 ```
 
 命令：
 
 ```
-./bin/go-ycsb load mysql -P workloads/workloade -p recordcount=500000 -p mysql.host=10.xxx.xxx.xxx
+./bin/go-ycsb load mysql -P workloads/workloade -p recordcount=100000 -p mysql.host=10.xxx.xxx.xxx
 ```
 
 输出：
 
 ```
-
+Run finished, takes 2.056555966s
+INSERT - Takes(s): 2.0, Count: 46, OPS: 22.8, Avg(us): 972, Min(us): 536, Max(us): 6883, 99th(us): 7000, 99.9th(us): 7000, 99.99th(us): 7000
+SCAN   - Takes(s): 2.1, Count: 954, OPS: 464.9, Avg(us): 2099, Min(us): 1225, Max(us): 12231, 99th(us): 10000, 99.9th(us): 13000, 99.99th(us): 13000
 ```
 
 命令：
 
 ```
-./bin/go-ycsb load mysql -P workloads/workloadf -p recordcount=500000 -p mysql.host=10.xxx.xxx.xxx
+./bin/go-ycsb load mysql -P workloads/workloadf -p recordcount=100000 -p mysql.host=10.xxx.xxx.xxx
+```
+
+输出：
+
+```
+Run finished, takes 6.87777154s
+READ   - Takes(s): 6.9, Count: 1000, OPS: 145.5, Avg(us): 1714, Min(us): 779, Max(us): 15222, 99th(us): 12000, 99.9th(us): 15000, 99.99th(us): 16000
+READ_MODIFY_WRITE - Takes(s): 6.8, Count: 487, OPS: 71.1, Avg(us): 12242, Min(us): 5046, Max(us): 34213, 99th(us): 29000, 99.9th(us): 35000, 99.99th(us): 35000
+UPDATE - Takes(s): 6.8, Count: 487, OPS: 71.1, Avg(us): 10577, Min(us): 3953, Max(us): 30621, 99th(us): 23000, 99.9th(us): 31000, 99.99th(us): 31000
+```
+
+## go-tpc
+
+命令：
+
+```
+./bin/go-tpc tpcc -H -P 4000 -D -U autopilot -p --warehouses 100 -T 100 prepare
+./bin/go-tpc tpcc -H -P 4000 -D -U autopilot -p --warehouses 100 -T 100 run
 ```
 
 输出：
